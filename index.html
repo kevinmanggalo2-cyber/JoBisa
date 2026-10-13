@@ -520,7 +520,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 13.5A9 9 0 1 1 10.5 3a7 7 0 0 0 10.5 10.5Z"/></svg>
       </button>
       <div class="auth-area hide-md" id="authArea"></div>
-      <a class="btn btn-outline hide-md" href="#" id="btnAdmin">Untuk perusahaan</a>
+      <a class="btn btn-outline hide-md" href="#" id="btnAdmin">Masuk / Daftar</a>
       <button class="btn btn-ghost icon-btn menu-toggle" id="menuBtn" aria-label="Buka menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -813,9 +813,9 @@
      Isi dengan Project URL dan anon public key dari Settings > API di dashboard Supabase-mu.
      Halaman ini HARUS di-host sendiri (Netlify/Vercel/GitHub Pages/dll), bukan dibuka lewat
      tautan claude.ai, karena publish artifact claude.ai memblokir panggilan jaringan keluar. */
-  const SUPABASE_URL = "https://ltfinhercucwqiwclhpx.supabase.co/rest/v1/";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0ZmluaGVyY3Vjd3Fpd2NsaHB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNDMzNTcsImV4cCI6MjEwNjkxOTM1N30.h1kheWlyODrHKg3FEw9LXAtKN1V5gZ6INhJ86lhb9KQ";
-  const sb = window.supabase.createClient(sb_publishable_wfGZZ3bLHkJXJkx2Ct7oew_lth2rMLB, eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0ZmluaGVyY3Vjd3Fpd2NsaHB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNDMzNTcsImV4cCI6MjEwNjkxOTM1N30.h1kheWlyODrHKg3FEw9LXAtKN1V5gZ6INhJ86lhb9KQ);
+  const SUPABASE_URL = "https://bsigvpbbmxjvqxxqikly.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJzaWd2cGJibXhqdnF4eHFpa2x5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzNTA1MDAsImV4cCI6MjEwNjkyNjUwMH0.CcrBgCQ3XNosUke4JrXFWpvbifjj7eC4UiNZFp1zy3g";
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const waLink = (msg) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
 
@@ -1171,7 +1171,7 @@
     }
   }
   document.addEventListener("click", e => { if (!e.target.closest(".auth-area")) { const d = $("#userDrop"); if (d) d.classList.remove("open"); } });
-  $("#btnAdmin").onclick = e => { e.preventDefault(); openAuth("login", "admin"); };
+  $("#btnAdmin").onclick = e => { e.preventDefault(); openAuth("login", "user"); };
   $("#footAdmin").onclick = e => { e.preventDefault(); openAuth("login", "admin"); };
 
   function appRow(a, isAdmin) {

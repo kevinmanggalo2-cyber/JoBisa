@@ -1182,19 +1182,29 @@
     const submitBtn = $("#authSubmit");
     submitBtn.disabled = true;
     try {
-      if (authMode === "register") {
+            if (authMode === "register") {
         const name = $("#authName").value.trim(), pass2 = $("#authPass2").value;
         if (!name) { $("#authErr").textContent = "Isi nama lengkap dulu ya."; return; }
         if (pass.length < 4) { $("#authErr").textContent = "Kata sandi minimal 4 karakter."; return; }
         if (pass !== pass2) { $("#authErr").textContent = "Konfirmasi kata sandi tidak sama."; return; }
 
-        const { data: signUpData, error: signUpErr } = await sb.auth.signUp({ email, password: pass });
+        // PERUBAHAN DI SINI: Kirim name dan role ke dalam metadata options.data
+        const { data: signUpData, error: signUpErr } = await sb.auth.signUp({ 
+            email, 
+            password: pass,
+            options: {
+                data: {
+                    name: name,
+                    role: authRole
+                }
+            }
+        });
+        
         if (signUpErr) { $("#authErr").textContent = signUpErr.message; return; }
         const uid = signUpData.user && signUpData.user.id;
         if (!uid) { $("#authErr").textContent = "Pendaftaran gagal. Coba lagi."; return; }
 
-        const { error: profileErr } = await sb.from("profiles").insert({ id: uid, name, role: authRole });
-        if (profileErr) { $("#authErr").textContent = "Gagal menyimpan profil: " + profileErr.message; return; }
+        // Kode insert manual dihapus karena sudah ditangani oleh Database Trigger
 
         await refreshProfile();
         toast("Akun berhasil dibuat. Selamat datang, " + name + "!");
